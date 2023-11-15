@@ -1,0 +1,64 @@
+config cisco
+
+- enable 
+- erase startup-config
+- configure terminal
+- enable password
+- hostname <switch model(ex)>
+- vlan <number>
+- name <name>
+- copy running-config startup-config
+
+// set user acewss
+- configure terminal
+- line console 0
+- password <password>
+- login
+- exit
+- copy running-config startup-config
+- reboot
+
+
+
+// assign special interface to vlan
+- interface fastEthernet <0/1(ex)>
+- switchport mode access
+- switch access vlan <number>
+
+
+// assign range interface to vlan
+- configure terminal
+- interface range fastEthernet <0/1-10(ex)>
+- switchport mode access
+- switch access vlan <number> 
+
+
+// assign ip address to vlan
+- configure terminal
+- interface vlan <number>
+- ip address
+- switch access vlan <number> 
+
+// show ip interface
+-  show ip interface brief
+
+// config telnet
+- configure terminal
+- username admin
+- username admin secrect <password>
+- line vty o
+-  transport input all
+- copy running-config startup-config
+
+// acl telnet
+- configure terminal
+- ip access-list extended 100
+- permit tcp host <192.168.1.200> any eq telnet
+- deny ip any any log
+- exit
+- configure terminal
+- line vty 0 15
+- access-class 100 in
+- transport input telnet
+- exit
+- show access-list
