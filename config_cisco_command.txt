@@ -62,3 +62,15 @@ config cisco
 - transport input telnet
 - exit
 - show access-list
+
+
+// trunk port
+- enable
+- configure terminal
+- interface interface-id
+- switchport mode trunk
+- switchport trunk encapsulation dot1q
+- switchport access vlan vlan-id
+- switchport trunk allow vlan vlan-id
+- switchport trunk native vlan <vlan-id>
+- do show interfaces interface-id switchport
