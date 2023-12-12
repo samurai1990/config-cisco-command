@@ -74,3 +74,35 @@ config cisco
 - switchport trunk allow vlan vlan-id
 - switchport trunk native vlan <vlan-id>
 - do show interfaces interface-id switchport
+
+
+// Access list to restrict certain IPs
+- enable
+- configure terminal
+- access-list 101 permit ip 192.168.10.100 0.0.0.19 any
+- interface [interface_type] [interface_number]
+- ip access-group 101 in
+
+
+// Show access control list
+- enable
+- show access-lists
+
+// Show access list for interface
+- enable
+- show ip interface [interface_type][interface_number]
+
+
+// Change acces-list
+- enable
+- configure terminal
+- no access-list 101
+- access-list 101 permit tcp any host 192.168.10.100
+- access-list 101 deny ip any host 192.168.10.120
+- extended
+
+// remove access list from interface
+- enable
+- configure terminal
+- interface [interface_type] [interface_number]
+- no ip access-group {access-list-number | access-list-name} {in | out}
