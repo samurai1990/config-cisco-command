@@ -126,6 +126,12 @@ config cisco
 - no ip access-group {access-list-number | access-list-name} {in | out}
 
 
+// ACL to Drop Broadcast Packets
+- ip access-list extended DROP_BROADCAST
+- deny   ip any 255.255.255.255 0.0.0.0
+- deny   ip any 224.0.0.0 15.255.255.255
+- permit ip any any
+
 
 // etherchannel
 - enable
@@ -143,3 +149,12 @@ config cisco
 - switchport trunk allow vlan vlan-id
 - switchport trunk native vlan <vlan-id>
 - do show interfaces interface-id switchport
+
+//Port Security
+- (config)# interface range <fa0/1 - 24>
+- (config-if-range)# switchport mode access
+- (config-if-range)# switchport port-security
+- (config-if-range)# switchport port-security maximum 2
+- (config-if-range)# switchport port-security violation restrict
+- (config-if-range)# switchport port-security mac-address sticky
+- (config-if-range)# exit
