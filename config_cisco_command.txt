@@ -63,6 +63,24 @@ config cisco
 - exit
 - show access-list
 
+// acl drop dhcp
+- configure terminal
+- access-list <100> deny udp any any eq bootps
+- access-list <100> deny udp any any eq bootpc
+- access-list <100> permit ip any any
+- interface <interface-id> OR <vlan-id>
+- ip access-group 100 in
+- exit
+
+// DHCP Snooping
+- configure terminal
+- ip dhcp snooping
+- interface < <interface-id>> # Specify which interfaces are connected to legitimate DHCP servers.
+- ip dhcp snooping trust
+- exit
+- ip dhcp snooping vlan <1,10,20>
+- how ip dhcp snooping # Verify Configuration
+
 
 // trunk port
 - enable
