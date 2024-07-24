@@ -128,9 +128,11 @@ config cisco
 
 // ACL to Drop Broadcast Packets
 - ip access-list extended DROP_BROADCAST
-- deny   ip any 255.255.255.255 0.0.0.0
-- deny   ip any 224.0.0.0 15.255.255.255
-- permit ip any any
+    - deny ip any 255.255.255.255 0.0.0.0
+    - deny ip any 224.0.0.0 15.255.255.255
+    - deny udp any any eq bootps
+    - deny udp any any eq bootpc
+    - permit ip any any
 
 
 // etherchannel
