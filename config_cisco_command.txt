@@ -160,3 +160,19 @@ config cisco
 - (config-if-range)# switchport port-security violation restrict
 - (config-if-range)# switchport port-security mac-address sticky
 - (config-if-range)# exit
+
+
+// Configuring DHCP
+- Switch>enable
+- Switch#configure terminal
+- Switch(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.10
+- Switch(config)#ip dhcp pool test
+- Switch(dhcp-config)#network 192.168.1.0 255.255.255.0
+- Switch(dhcp-config)#default-router 192.168.1.1
+- Switch(dhcp-config)#dns-server 4.4.4.4
+- Switch(dhcp-config)#exit
+- Switch(config)#interface vlan 1
+- Switch(config-if)#ip address 192.168.1.5  255.255.255.0
+- Switch(config-if)#no shutdown
+- Switch(config-if)#exit
+- Switch(config)#exit
