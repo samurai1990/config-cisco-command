@@ -72,15 +72,6 @@ config cisco
 - ip access-group 100 in
 - exit
 
-// DHCP Snooping
-- configure terminal
-- ip dhcp snooping
-- interface < <interface-id>> # Specify which interfaces are connected to legitimate DHCP servers.
-- ip dhcp snooping trust
-- exit
-- ip dhcp snooping vlan <1,10,20>
-- how ip dhcp snooping # Verify Configuration
-
 
 // trunk port
 - enable
@@ -162,17 +153,32 @@ config cisco
 - (config-if-range)# exit
 
 
-// Configuring DHCP
+// Configuring DHCP (Core)
 - Switch>enable
 - Switch#configure terminal
+- Switch(config)#ip dhcp snooping
+- Switch(config)#ip dhcp snooping vlan <vlan id>
 - Switch(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.10
 - Switch(config)#ip dhcp pool test
 - Switch(dhcp-config)#network 192.168.1.0 255.255.255.0
 - Switch(dhcp-config)#default-router 192.168.1.1
 - Switch(dhcp-config)#dns-server 4.4.4.4
 - Switch(dhcp-config)#exit
-- Switch(config)#interface vlan 1
-- Switch(config-if)#ip address 192.168.1.5  255.255.255.0
-- Switch(config-if)#no shutdown
-- Switch(config-if)#exit
-- Switch(config)#exit
+
+
+// Configuring DHCP (Connected to Core)
+- Switch>enable
+- Switch#configure terminal
+- Switch(config)#ip dhcp snooping
+- Switch(config)#ip dhcp snooping vlan <vlan id>
+- Switch(config)#no ip dhcp snooping information option
+
+
+// DHCP Snooping
+- configure terminal
+- ip dhcp snooping
+- interface < <interface-id>> # Specify which interfaces are connected to legitimate DHCP servers.
+- ip dhcp snooping trust
+- exit
+- ip dhcp snooping vlan <1,10,20>
+- how ip dhcp snooping # Verify Configuration
